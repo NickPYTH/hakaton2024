@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 public class RequestDTO {
@@ -31,4 +33,8 @@ public class RequestDTO {
     private String createDate;
     @ApiModelProperty(position = 11)
     private String deadlineDate;
+    @ApiModelProperty(position = 12)
+    private Date updateDate;
+    @ApiModelProperty(position = 13)
+    private String comment;
 }
