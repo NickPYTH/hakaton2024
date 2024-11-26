@@ -1,5 +1,6 @@
 package de401t.service;
 
+import de401t.dto.RoleDTO;
 import de401t.dto.UserDTO;
 import de401t.exception.CustomException;
 import de401t.model.Role;
@@ -55,7 +56,7 @@ public class UserService {
         if (!userRepository.existsByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             List<Role> roles = new ArrayList<>();
-            roles.add(roleRepository.findByCode(userDTO.getRole()));
+            roles.add(roleRepository.findById(userDTO.getRole().getId()));
             user.setRoles(roles);
             userRepository.save(user);
             throw new CustomException("Created", HttpStatus.CREATED);
@@ -70,7 +71,7 @@ public class UserService {
             throw new CustomException("User does not exist", HttpStatus.UNPROCESSABLE_ENTITY);
         User user = userOpt.get();
         List<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.findByCode(userDTO.getRole()));
+        roles.add(roleRepository.findById(userDTO.getRole().getId()));
         user.setRoles(roles);
         user.setName(userDTO.getName());
         user.setSurname(userDTO.getSurname());
@@ -107,9 +108,9 @@ public class UserService {
         propertyMapper.addMappings(mapper -> mapper.skip(UserDTO::setPassword));
         List<UserDTO> response = new ArrayList<>();
         for (User user : userRepository.findAll()) {
+            RoleDTO roleDTO = modelMapper.map(user.getRoles().get(0), RoleDTO.class);
             UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-            Optional<Role> roleOpt = user.getRoles().stream().findFirst();
-            roleOpt.ifPresent(role -> userDTO.setRole(role.getCode()));
+            userDTO.setRole(roleDTO);
             response.add(userDTO);
         }
         return response;

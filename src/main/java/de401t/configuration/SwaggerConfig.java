@@ -39,7 +39,8 @@ public class SwaggerConfig {
         .securitySchemes(Collections.singletonList(apiKey()))
         .securityContexts(Collections.singletonList(securityContext()))
         .tags(
-                new Tag("users", "Операции с пользователями")
+                new Tag("users", "Операции с пользователями"),
+                new Tag("roles", "Операции с ролями")
         )//
         .genericModelSubstitutes(Optional.class);
 

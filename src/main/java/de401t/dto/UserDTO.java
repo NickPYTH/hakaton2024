@@ -24,5 +24,5 @@ public class UserDTO {
     @ApiModelProperty(position = 7)
     private String phone;
     @ApiModelProperty(position = 8)
-    private Integer role;
+    private RoleDTO role;
 }
