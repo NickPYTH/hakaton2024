@@ -42,4 +42,8 @@ public class Request {
     private Date createDate;
     @Column
     private Date deadlineDate;
+    @Column
+    private Date updateDate;
+    @Column
+    private String comment;
 }
