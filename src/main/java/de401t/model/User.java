@@ -33,34 +33,32 @@ public class User implements UserDetails {
     private String email;
     @Column(nullable = false)
     private String phone;
+    @Column(unique = true)
+    private String tgId;
+    @Column(unique = true)
+    private String tgName;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
-
     @Override
     public String getUsername() {
         return username;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
     @Override
     public boolean isEnabled() {
         return true;
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

@@ -4,12 +4,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
-public class UserDataDTO {
+public class UserDTO {
 
     @ApiModelProperty(position = 0)
     private String username;

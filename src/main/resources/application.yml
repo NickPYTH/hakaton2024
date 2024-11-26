@@ -10,7 +10,7 @@ spring:
       max-request-size: 20MB
   jpa:
     database: POSTGRESQL
-    hibernate.ddl-auto: validate  # create or create-drop or validate
+    hibernate.ddl-auto: create  # create or create-drop or validate
     show-sql: true
 
   datasource:

@@ -1,6 +1,6 @@
 package de401t.controller;
 
-import de401t.dto.UserDataDTO;
+import de401t.dto.UserDTO;
 import de401t.service.UserService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +36,13 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/create")
-    //@PreAuthorize("hasAuthority('admin')")
     @ApiOperation(value = "${UserController.signup}")
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
             @ApiResponse(code = 403, message = "Доступ огрнаничен"), //
             @ApiResponse(code = 422, message = "Имя пользователя уже занято")})
-    public String signup(@ApiParam("Signup User") @RequestBody UserDataDTO userDataDTO) {
-        return userService.register(userDataDTO);
+    public String signup(@ApiParam("Signup User") @RequestBody UserDTO userDTO) {
+        return userService.register(userDTO);
     }
 
     @CrossOrigin(origins = "*")
@@ -54,8 +53,8 @@ public class UserController {
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
             @ApiResponse(code = 403, message = "Доступ огрнаничен"), //
             @ApiResponse(code = 422, message = "Имя пользователя уже занято")})
-    public String update(@ApiParam("Signup User") @RequestBody UserDataDTO userDataDTO) {
-        return userService.update(userDataDTO);
+    public String update(@ApiParam("Signup User") @RequestBody UserDTO userDTO) {
+        return userService.update(userDTO);
     }
 
     @CrossOrigin(origins = "*")
@@ -74,35 +73,35 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/{username}")
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "${UserController.search}", response = UserDataDTO.class, authorizations = {@Authorization(value = "apiKey")})
+    @ApiOperation(value = "${UserController.search}", response = UserDTO.class, authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен"),
             @ApiResponse(code = 404, message = "Пользователь не существует"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
-    public UserDataDTO search(@ApiParam("Username") @PathVariable String username) {
-        return modelMapper.map(userService.search(username), UserDataDTO.class);
+    public UserDTO search(@ApiParam("Username") @PathVariable String username) {
+        return modelMapper.map(userService.search(username), UserDTO.class);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/all")
     @PreAuthorize("hasAuthority('admin')")
-    @ApiOperation(value = "${UserController.getUsers}", response = UserDataDTO.class,
+    @ApiOperation(value = "${UserController.getUsers}", response = UserDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
-    public List<UserDataDTO> getUsers() {
+    public List<UserDTO> getUsers() {
         return userService.getUsers();
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/me")
-    @ApiOperation(value = "${UserController.me}", response = UserDataDTO.class, authorizations = {@Authorization(value = "apiKey")})
+    @ApiOperation(value = "${UserController.me}", response = UserDTO.class, authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
-    public UserDataDTO whoami(HttpServletRequest req) {
-        return modelMapper.map(userService.whoami(req), UserDataDTO.class);
+    public UserDTO whoami(HttpServletRequest req) {
+        return modelMapper.map(userService.whoami(req), UserDTO.class);
     }
 
     @CrossOrigin(origins = "*")

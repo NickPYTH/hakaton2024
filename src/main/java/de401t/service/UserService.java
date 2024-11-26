@@ -1,6 +1,6 @@
 package de401t.service;
 
-import de401t.dto.UserDataDTO;
+import de401t.dto.UserDTO;
 import de401t.exception.CustomException;
 import de401t.model.Role;
 import de401t.model.User;
@@ -47,15 +47,15 @@ public class UserService {
         }
     }
 
-    public String register(UserDataDTO userDataDTO) {
+    public String register(UserDTO userDTO) {
         ModelMapper modelMapper = new ModelMapper();
-        TypeMap<UserDataDTO, User> propertyMapper = modelMapper.createTypeMap(UserDataDTO.class, User.class);
+        TypeMap<UserDTO, User> propertyMapper = modelMapper.createTypeMap(UserDTO.class, User.class);
         propertyMapper.addMappings(mapper -> mapper.skip(User::setRoles));
-        User user = modelMapper.map(userDataDTO, User.class);
+        User user = modelMapper.map(userDTO, User.class);
         if (!userRepository.existsByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             List<Role> roles = new ArrayList<>();
-            roles.add(roleRepository.findByCode(userDataDTO.getRole()));
+            roles.add(roleRepository.findByCode(userDTO.getRole()));
             user.setRoles(roles);
             userRepository.save(user);
             throw new CustomException("Created", HttpStatus.CREATED);
@@ -64,22 +64,22 @@ public class UserService {
         }
     }
 
-    public String update(UserDataDTO userDataDTO) {
-        Optional<User> userOpt = userRepository.findById(userDataDTO.getId());
+    public String update(UserDTO userDTO) {
+        Optional<User> userOpt = userRepository.findById(userDTO.getId());
         if (!userOpt.isPresent())
             throw new CustomException("User does not exist", HttpStatus.UNPROCESSABLE_ENTITY);
         User user = userOpt.get();
         List<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.findByCode(userDataDTO.getRole()));
+        roles.add(roleRepository.findByCode(userDTO.getRole()));
         user.setRoles(roles);
-        user.setName(userDataDTO.getName());
-        user.setSurname(userDataDTO.getSurname());
+        user.setName(userDTO.getName());
+        user.setSurname(userDTO.getSurname());
         user.setSecondName(user.getSecondName());
-        user.setUsername(userDataDTO.getUsername());
-        user.setEmail(userDataDTO.getEmail());
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
         user.setPhone(user.getPhone());
-        if (userDataDTO.getPassword().trim().length() > 0)
-            user.setPassword(passwordEncoder.encode(userDataDTO.getPassword()));
+        if (userDTO.getPassword().trim().length() > 0)
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);
         throw new CustomException("Updated", HttpStatus.OK);
     }
@@ -101,16 +101,16 @@ public class UserService {
         return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
     }
 
-    public List<UserDataDTO> getUsers() {
+    public List<UserDTO> getUsers() {
         ModelMapper modelMapper = new ModelMapper();
-        TypeMap<User, UserDataDTO> propertyMapper = modelMapper.createTypeMap(User.class, UserDataDTO.class);
-        propertyMapper.addMappings(mapper -> mapper.skip(UserDataDTO::setPassword));
-        List<UserDataDTO> response = new ArrayList<>();
+        TypeMap<User, UserDTO> propertyMapper = modelMapper.createTypeMap(User.class, UserDTO.class);
+        propertyMapper.addMappings(mapper -> mapper.skip(UserDTO::setPassword));
+        List<UserDTO> response = new ArrayList<>();
         for (User user : userRepository.findAll()) {
-            UserDataDTO userDataDTO = modelMapper.map(user, UserDataDTO.class);
+            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
             Optional<Role> roleOpt = user.getRoles().stream().findFirst();
-            roleOpt.ifPresent(role -> userDataDTO.setRole(role.getCode()));
-            response.add(userDataDTO);
+            roleOpt.ifPresent(role -> userDTO.setRole(role.getCode()));
+            response.add(userDTO);
         }
         return response;
     }
