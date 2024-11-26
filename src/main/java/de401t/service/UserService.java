@@ -74,10 +74,10 @@ public class UserService {
         user.setRoles(roles);
         user.setName(userDTO.getName());
         user.setSurname(userDTO.getSurname());
-        user.setSecondName(user.getSecondName());
+        user.setSecondName(userDTO.getSecondName());
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
-        user.setPhone(user.getPhone());
+        user.setPhone(userDTO.getPhone());
         if (userDTO.getPassword().trim().length() > 0)
             user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);

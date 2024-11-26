@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Priority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(unique = true, nullable = false)
     private String name;
 }

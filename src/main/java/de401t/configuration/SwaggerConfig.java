@@ -50,7 +50,6 @@ public class SwaggerConfig {
         .title("Hakaton 2024")//
         .description("Hakaton API")//
         .version("1.0.0")//
-        //.license("MIT License").licenseUrl("http://opensource.org/licenses/MIT")//
         .contact(new Contact(null, null, "nicksrnk@gmail.com"))//
         .build();
   }

@@ -6,23 +6,29 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserDTO {
+public class RequestDTO {
     @ApiModelProperty
     private Long id;
     @ApiModelProperty(position = 1)
-    private String username;
-    @ApiModelProperty(position = 2)
-    private String password;
-    @ApiModelProperty(position = 3)
     private String name;
+    @ApiModelProperty(position = 2)
+    private String description;
+    @ApiModelProperty(position = 3)
+    private String solution;
     @ApiModelProperty(position = 4)
-    private String surname;
+    private Long statusId;
     @ApiModelProperty(position = 5)
-    private String secondName;
+    private Long priorityId;
     @ApiModelProperty(position = 6)
-    private String email;
+    private Long typeId;
     @ApiModelProperty(position = 7)
-    private String phone;
+    private Long clientId;
     @ApiModelProperty(position = 8)
-    private Integer role;
+    private Long assistantId;
+    @ApiModelProperty(position = 9)
+    private Long executorId;
+    @ApiModelProperty(position = 10)
+    private String createDate;
+    @ApiModelProperty(position = 11)
+    private String deadlineDate;
 }
