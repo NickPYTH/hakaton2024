@@ -40,7 +40,12 @@ public class SwaggerConfig {
         .securityContexts(Collections.singletonList(securityContext()))
         .tags(
                 new Tag("users", "Операции с пользователями"),
-                new Tag("roles", "Операции с ролями")
+                new Tag("roles", "Операции с ролями"),
+                new Tag("priority", "Операции с ролями"),
+                new Tag("requests", "Операции с заявками"),
+                new Tag("statuses", "Операции со статусами"),
+                new Tag("subtypes", "Операции с подтипами типов заявок"),
+                new Tag("types", "Операции с типами заявок")
         )//
         .genericModelSubstitutes(Optional.class);
 

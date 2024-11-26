@@ -1,10 +1,13 @@
 package de401t.controller;
 
 import de401t.dto.RoleDTO;
+import de401t.dto.UserDTO;
 import de401t.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +24,10 @@ public class RoleController {
     private final RoleService roleService;
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/all")
-    @ApiOperation(value = "${RoleController.getAll}", response = RoleDTO.class, responseContainer = "List")
+    @PreAuthorize("hasAuthority('admin')")
+    @ApiOperation(value = "${RoleController.getAll}", response = RoleDTO.class,
+            responseContainer = "List",
+            authorizations = {@Authorization(value = "apiKey")})
     public List<RoleDTO> getAll() {
         return roleService.getAll();
     }

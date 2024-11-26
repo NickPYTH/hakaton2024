@@ -79,8 +79,9 @@ public class UserService {
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setPhone(userDTO.getPhone());
-        if (userDTO.getPassword().trim().length() > 0)
-            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        if (userDTO.getPassword() != null)
+            if (userDTO.getPassword().trim().length() > 0)
+                user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);
         throw new CustomException("Updated", HttpStatus.OK);
     }
