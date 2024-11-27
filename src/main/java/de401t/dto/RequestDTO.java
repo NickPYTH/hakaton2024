@@ -30,9 +30,9 @@ public class RequestDTO {
     @ApiModelProperty(position = 9)
     private UserDTO executor;
     @ApiModelProperty(position = 10)
-    private String createDate;
+    private Date createDate;
     @ApiModelProperty(position = 11)
-    private String deadlineDate;
+    private Date deadlineDate;
     @ApiModelProperty(position = 12)
     private Date updateDate;
     @ApiModelProperty(position = 13)

@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,12 +32,14 @@ public class RequestService {
 
     public String create(RequestDTO requestDTO) {
         Request request = modelMapper.map(requestDTO, Request.class);
+        request.setCreateDate(new Date());
         requestRepository.save(request);
         throw new CustomException("Request created", HttpStatus.OK);
     }
 
     public String update(RequestDTO requestDTO) {
         Request request = modelMapper.map(requestDTO, Request.class);
+        request.setUpdateDate(new Date());
         requestRepository.save(request);
         throw new CustomException("Request updated", HttpStatus.OK);
     }

@@ -1,15 +1,20 @@
 package de401t;
 
 
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 
 import de401t.service.UserService;
 import org.springframework.scheduling.annotation.EnableAsync;
+
+import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -25,6 +30,15 @@ public class JwtAuthServiceApp implements CommandLineRunner {
   @Bean
   public ModelMapper modelMapper() {
     return new ModelMapper();
+  }
+
+  @Bean
+  public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
+    return builder -> {
+      builder.simpleDateFormat("dd-MM-yyyy HH:mm");
+      builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+      builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+    };
   }
 
   @Override

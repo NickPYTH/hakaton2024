@@ -11,4 +11,6 @@ public class PriorityDTO {
     private Long id;
     @ApiModelProperty(position = 1)
     private String name;
+    @ApiModelProperty(position = 2)
+    private Long term;
 }
