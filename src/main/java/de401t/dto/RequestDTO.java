@@ -18,17 +18,17 @@ public class RequestDTO {
     @ApiModelProperty(position = 3)
     private String solution;
     @ApiModelProperty(position = 4)
-    private Long statusId;
+    private StatusDTO status;
     @ApiModelProperty(position = 5)
-    private Long priorityId;
+    private PriorityDTO priority;
     @ApiModelProperty(position = 6)
-    private Long typeId;
+    private TypeDTO type;
     @ApiModelProperty(position = 7)
-    private Long clientId;
+    private UserDTO client;
     @ApiModelProperty(position = 8)
-    private Long assistantId;
+    private UserDTO assistant;
     @ApiModelProperty(position = 9)
-    private Long executorId;
+    private UserDTO executor;
     @ApiModelProperty(position = 10)
     private String createDate;
     @ApiModelProperty(position = 11)
