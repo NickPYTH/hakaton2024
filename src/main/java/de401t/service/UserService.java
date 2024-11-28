@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -121,4 +122,15 @@ public class UserService {
         return response;
     }
 
+    @Transactional
+    public UserDTO addTgId(String tgName, String tgId) {
+        ModelMapper modelMapper = new ModelMapper();
+        Optional<User> userOpt = userRepository.findByTgName(tgName);
+        if (userOpt.isPresent()){
+            User user = userOpt.get();
+            user.setTgId(tgId);
+            userRepository.save(user);
+            return modelMapper.map(user, UserDTO.class);
+        } else throw new CustomException("User with tgName not found", HttpStatus.NOT_FOUND);
+    }
 }

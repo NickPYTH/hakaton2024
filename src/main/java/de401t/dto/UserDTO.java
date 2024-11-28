@@ -25,4 +25,8 @@ public class UserDTO {
     private String phone;
     @ApiModelProperty(position = 8)
     private RoleDTO role;
+    @ApiModelProperty(position = 9)
+    private String tgName;
+    @ApiModelProperty(position = 10)
+    private String tgId;
 }

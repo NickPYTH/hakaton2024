@@ -112,4 +112,17 @@ public class UserController {
         return response;
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/addTgId")
+    @PreAuthorize("isAnonymous()")
+    @ApiOperation(value = "${UserController.search}", response = UserDTO.class, authorizations = {@Authorization(value = "apiKey")})
+    @ApiResponses(value = {
+            @ApiResponse(code = 400, message = "Что-то пошло не так"),
+            @ApiResponse(code = 403, message = "Доступ ограничен"),
+            @ApiResponse(code = 404, message = "Пользователь с заданным tgName не существует"),
+            @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
+    public UserDTO search(@ApiParam("TG name") @RequestParam String tgName, @ApiParam("TG ID") @RequestParam String tgId) {
+        return userService.addTgId(tgName, tgId);
+    }
+
 }
