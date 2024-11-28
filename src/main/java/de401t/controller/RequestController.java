@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -23,8 +24,8 @@ public class RequestController {
     @ApiOperation(value = "${RequestController.getRequests}", response = RequestDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
-    public List<RequestDTO> getRequests() {
-        return requestService.getRequests();
+    public List<RequestDTO> getRequests(HttpServletRequest req) {
+        return requestService.getRequests(req);
     }
 
     @GetMapping(value = "/{id}")
