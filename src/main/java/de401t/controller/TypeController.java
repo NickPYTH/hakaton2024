@@ -35,7 +35,7 @@ public class TypeController {
         return typeService.getTypeById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${TypeController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -44,7 +44,7 @@ public class TypeController {
         return typeService.create(TypeDTO);
     }
 
-    @PostMapping("/update")
+    @PutMapping(value = "/update")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${TypeController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -53,7 +53,7 @@ public class TypeController {
         return typeService.update(TypeDTO);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping(value = "/delete/{id}")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${TypeController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),

@@ -15,7 +15,6 @@ public class SubType {
     private Long id;
     @Column(unique = true, nullable = false)
     private String name;
-    @OneToOne
-    @JoinColumn(name = "type_id")
-    private Type type;
+    @Column(nullable = false)
+    private Long typeId;
 }

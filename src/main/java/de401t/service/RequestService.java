@@ -6,6 +6,7 @@ import de401t.model.Request;
 import de401t.model.Role;
 import de401t.model.User;
 import de401t.repository.RequestRepository;
+import de401t.repository.StatusRepository;
 import de401t.repository.UserRepository;
 import de401t.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 public class RequestService {
     private final UserRepository userRepository;
     private final RequestRepository requestRepository;
+    private final StatusRepository statusRepository;
     private final ModelMapper modelMapper;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -32,7 +36,15 @@ public class RequestService {
 
     public String create(RequestDTO requestDTO) {
         Request request = modelMapper.map(requestDTO, Request.class);
+        if(request.getPriority() == null || !(request.getType() != null && request.getSubType() != null && request.getType().getId().equals(request.getSubType().getTypeId()))) {
+            throw new CustomException("Something went wrong", HttpStatus.BAD_REQUEST);
+        }
         request.setCreateDate(new Date());
+        request.setStatus(statusRepository.getById(1L));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(request.getCreateDate());
+        calendar.add(Calendar.HOUR_OF_DAY, request.getPriority().getTerm().intValue());
+        request.setDeadlineDate(calendar.getTime());
         requestRepository.save(request);
         throw new CustomException("Request created", HttpStatus.OK);
     }
@@ -56,7 +68,8 @@ public class RequestService {
             List<Request> requests = requestRepository.findAllByClientOrderById(user);
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         } else if (role.getAuthority().equals("executor")) {
-            List<Request> requests = requestRepository.findAllByExecutorOrderById(user);
+            List<Request> requests = requestRepository.findAllByExecutor(user);
+            requests.addAll(requestRepository.findAllByStatusId(1L));
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         }
         else if (role.getAuthority().equals("admin")) {

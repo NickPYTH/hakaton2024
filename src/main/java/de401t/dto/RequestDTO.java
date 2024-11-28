@@ -24,17 +24,19 @@ public class RequestDTO {
     @ApiModelProperty(position = 6)
     private TypeDTO type;
     @ApiModelProperty(position = 7)
-    private UserDTO client;
+    private SubTypeDTO subType;
     @ApiModelProperty(position = 8)
-    private UserDTO assistant;
+    private UserDTO client;
     @ApiModelProperty(position = 9)
-    private UserDTO executor;
+    private UserDTO assistant;
     @ApiModelProperty(position = 10)
-    private Date createDate;
+    private UserDTO executor;
     @ApiModelProperty(position = 11)
-    private Date deadlineDate;
+    private Date createDate;
     @ApiModelProperty(position = 12)
-    private Date updateDate;
+    private Date deadlineDate;
     @ApiModelProperty(position = 13)
+    private Date updateDate;
+    @ApiModelProperty(position = 14)
     private String comment;
 }

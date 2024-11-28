@@ -36,7 +36,7 @@ public class RequestController {
         return requestService.getRequestById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${RequestController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -45,7 +45,7 @@ public class RequestController {
         return requestService.create(requestDTO);
     }
 
-    @PostMapping("/update")
+    @PutMapping(value = "/update")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${RequestController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -54,12 +54,12 @@ public class RequestController {
         return requestService.update(requestDTO);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping(value = "/delete/{id}")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${RequestController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ огрнаничен")})
-    public String delete(@ApiParam("id") @RequestParam Long id) {
+    public String delete(@ApiParam("id") @PathVariable Long id) {
         return requestService.delete(id);
     }
 
