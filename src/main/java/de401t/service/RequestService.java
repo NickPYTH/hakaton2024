@@ -68,7 +68,7 @@ public class RequestService {
             List<Request> requests = requestRepository.findAllByClientOrderById(user);
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         } else if (role.getAuthority().equals("executor")) {
-            List<Request> requests = requestRepository.findAllByExecutor(user);
+            List<Request> requests = requestRepository.findAllByExecutorOrderById(user);
             requests.addAll(requestRepository.findAllByStatusId(1L));
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         }
