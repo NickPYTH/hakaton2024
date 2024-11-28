@@ -35,7 +35,7 @@ public class StatusController {
         return statusService.getStatusById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${StatusController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -44,7 +44,7 @@ public class StatusController {
         return statusService.create(StatusDTO);
     }
 
-    @PostMapping("/update")
+    @PutMapping(value = "/update")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${StatusController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -53,7 +53,7 @@ public class StatusController {
         return statusService.update(StatusDTO);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping(value = "/delete/{id}")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${StatusController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),

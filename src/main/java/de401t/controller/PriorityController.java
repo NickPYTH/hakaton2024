@@ -35,7 +35,7 @@ public class PriorityController {
         return priorityService.getPriorityById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -44,7 +44,7 @@ public class PriorityController {
         return priorityService.create(PriorityDTO);
     }
 
-    @PostMapping("/update")
+    @PutMapping(value = "/update")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -53,7 +53,7 @@ public class PriorityController {
         return priorityService.update(PriorityDTO);
     }
 
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete/{id}")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),

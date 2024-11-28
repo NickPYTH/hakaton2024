@@ -30,6 +30,9 @@ public class Request {
     @JoinColumn(name = "type_id")
     private Type type;
     @OneToOne
+    @JoinColumn(name = "sub_type_id")
+    private SubType subType;
+    @OneToOne
     @JoinColumn(name = "client_id")
     private User client;
     @OneToOne

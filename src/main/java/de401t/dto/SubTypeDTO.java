@@ -12,5 +12,5 @@ public class SubTypeDTO {
     @ApiModelProperty(position = 1)
     private String name;
     @ApiModelProperty(position = 2)
-    private Integer typeId;
+    private Long typeId;
 }
