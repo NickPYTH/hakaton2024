@@ -99,8 +99,12 @@ public class UserService {
         return user;
     }
 
-    public User whoami(HttpServletRequest req) {
-        return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+    public UserDTO whoami(HttpServletRequest req) {
+        ModelMapper modelMapper = new ModelMapper();
+        User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        userDTO.setRole(modelMapper.map(user.getRoles().get(0), RoleDTO.class));
+        return userDTO;
     }
 
     public List<UserDTO> getUsers() {

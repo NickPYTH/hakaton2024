@@ -19,7 +19,7 @@ public class SubTypeController {
     private final SubTypeService subTypeService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.getSubTypes}", response = SubTypeDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -28,7 +28,7 @@ public class SubTypeController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.getSubTypeById}", response = SubTypeDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public SubTypeDTO getSubTypeById(@ApiParam("Id") @PathVariable Long id) {
@@ -36,7 +36,7 @@ public class SubTypeController {
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ огрнаничен")})
@@ -45,7 +45,7 @@ public class SubTypeController {
     }
 
     @PostMapping("/update")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ огрнаничен")})
@@ -54,7 +54,7 @@ public class SubTypeController {
     }
 
     @PostMapping("/delete")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ огрнаничен")})

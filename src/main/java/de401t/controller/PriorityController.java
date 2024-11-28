@@ -19,7 +19,7 @@ public class PriorityController {
     private final PriorityService priorityService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.getPriorities}", response = PriorityDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -28,7 +28,7 @@ public class PriorityController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.getPriorityById}", response = PriorityDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public PriorityDTO getPriorityById(@ApiParam("Id") @PathVariable Long id) {
@@ -36,7 +36,7 @@ public class PriorityController {
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ огрнаничен")})
@@ -45,7 +45,7 @@ public class PriorityController {
     }
 
     @PostMapping("/update")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ огрнаничен")})
@@ -54,7 +54,7 @@ public class PriorityController {
     }
 
     @PostMapping("/delete")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ огрнаничен")})

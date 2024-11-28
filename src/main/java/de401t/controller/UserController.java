@@ -47,7 +47,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/update")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${UserController.signup}")
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
@@ -59,7 +59,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{username}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${UserController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
@@ -72,7 +72,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/{username}")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${UserController.search}", response = UserDTO.class, authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"),
@@ -85,7 +85,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${UserController.getUsers}", response = UserDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -101,7 +101,7 @@ public class UserController {
             @ApiResponse(code = 403, message = "Доступ ограничен"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
     public UserDTO whoami(HttpServletRequest req) {
-        return modelMapper.map(userService.whoami(req), UserDTO.class);
+        return userService.whoami(req);
     }
 
     @CrossOrigin(origins = "*")
