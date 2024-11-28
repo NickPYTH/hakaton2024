@@ -53,14 +53,14 @@ public class RequestService {
         User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
         Role role = user.getRoles().get(0);
         if (role.getAuthority().equals("client")){
-            List<Request> requests = requestRepository.findAllByClient(user);
+            List<Request> requests = requestRepository.findAllByClientOrderById(user);
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         } else if (role.getAuthority().equals("executor")) {
-            List<Request> requests = requestRepository.findAllByExecutor(user);
+            List<Request> requests = requestRepository.findAllByExecutorOrderById(user);
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         }
         else if (role.getAuthority().equals("admin")) {
-            List<Request> requests = requestRepository.findAll();
+            List<Request> requests = requestRepository.findAllByOrderById();
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         } else {
             throw new CustomException("Something went wrong", HttpStatus.BAD_REQUEST);
