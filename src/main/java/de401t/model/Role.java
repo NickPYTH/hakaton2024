@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "role", schema = "hakaton")
+@Table(name = "role", schema = "public")
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

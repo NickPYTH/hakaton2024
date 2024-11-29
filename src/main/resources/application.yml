@@ -10,12 +10,12 @@ spring:
       max-request-size: 20MB
   jpa:
     database: POSTGRESQL
-    hibernate.ddl-auto: validate  # create or create-drop or validate
+    hibernate.ddl-auto: create  # create or create-drop or validate
     show-sql: true
 
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://46.229.212.143:5432/default_db
+    url: jdbc:postgresql://46.229.212.143:5432/hakatonDB2024
     username: gen_user
     password: Sirenko2706200023
     hikari:

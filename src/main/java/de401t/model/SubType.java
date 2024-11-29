@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "sub_type", schema = "hakaton")
+@Table(name = "sub_type", schema = "public")
 public class SubType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

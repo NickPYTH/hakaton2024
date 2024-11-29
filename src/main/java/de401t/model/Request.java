@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "request", schema = "hakaton")
+@Table(name = "request", schema = "public")
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
