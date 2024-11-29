@@ -39,7 +39,7 @@ public class PriorityController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String create(@ApiParam("Priority") @RequestBody PriorityDTO PriorityDTO) {
         return priorityService.create(PriorityDTO);
     }
@@ -48,7 +48,7 @@ public class PriorityController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String update(@ApiParam("Priority") @RequestBody PriorityDTO PriorityDTO) {
         return priorityService.update(PriorityDTO);
     }
@@ -57,7 +57,7 @@ public class PriorityController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${PriorityController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String delete(@ApiParam("Id") @PathVariable Long id) {
         return priorityService.delete(id);
     }

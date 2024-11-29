@@ -40,7 +40,7 @@ public class RequestController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${RequestController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String create(@ApiParam("Request") @RequestBody RequestDTO requestDTO) {
         return requestService.create(requestDTO);
     }
@@ -49,7 +49,7 @@ public class RequestController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${RequestController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String update(@ApiParam("Request") @RequestBody RequestDTO requestDTO) {
         return requestService.update(requestDTO);
     }
@@ -58,7 +58,7 @@ public class RequestController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${RequestController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String delete(@ApiParam("id") @PathVariable Long id) {
         return requestService.delete(id);
     }

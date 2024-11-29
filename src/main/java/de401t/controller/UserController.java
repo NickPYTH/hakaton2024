@@ -39,7 +39,7 @@ public class UserController {
     @ApiOperation(value = "${UserController.signup}")
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
-            @ApiResponse(code = 403, message = "Доступ огрнаничен"), //
+            @ApiResponse(code = 403, message = "Доступ ограничен"), //
             @ApiResponse(code = 422, message = "Имя пользователя уже занято")})
     public String signup(@ApiParam("Signup User") @RequestBody UserDTO userDTO) {
         return userService.register(userDTO);
@@ -51,7 +51,7 @@ public class UserController {
     @ApiOperation(value = "${UserController.signup}")
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
-            @ApiResponse(code = 403, message = "Доступ огрнаничен"), //
+            @ApiResponse(code = 403, message = "Доступ ограничен"), //
             @ApiResponse(code = 422, message = "Имя пользователя уже занято")})
     public String update(@ApiParam("Signup User") @RequestBody UserDTO userDTO) {
         return userService.update(userDTO);

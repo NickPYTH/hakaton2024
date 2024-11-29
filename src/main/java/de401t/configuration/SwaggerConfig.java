@@ -1,27 +1,21 @@
 package de401t.configuration;
 
-import java.util.*;
-
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.google.common.base.Predicates;
-
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Configuration
 @EnableSwagger2
@@ -45,7 +39,8 @@ public class SwaggerConfig {
                 new Tag("requests", "Операции с заявками"),
                 new Tag("statuses", "Операции со статусами"),
                 new Tag("subtypes", "Операции с подтипами типов заявок"),
-                new Tag("types", "Операции с типами заявок")
+                new Tag("types", "Операции с типами заявок"),
+                new Tag("groups", "Операции с группами")
         )//
         .genericModelSubstitutes(Optional.class);
 

@@ -39,7 +39,7 @@ public class SubTypeController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String create(@ApiParam("SubType") @RequestBody SubTypeDTO SubTypeDTO) {
         return subTypeService.create(SubTypeDTO);
     }
@@ -48,7 +48,7 @@ public class SubTypeController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String update(@ApiParam("SubType") @RequestBody SubTypeDTO SubTypeDTO) {
         return subTypeService.update(SubTypeDTO);
     }
@@ -57,7 +57,7 @@ public class SubTypeController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${SubTypeController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String delete(@ApiParam("Id") @PathVariable Long id) {
         return subTypeService.delete(id);
     }

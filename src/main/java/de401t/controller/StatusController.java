@@ -39,7 +39,7 @@ public class StatusController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${StatusController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String create(@ApiParam("Status") @RequestBody StatusDTO StatusDTO) {
         return statusService.create(StatusDTO);
     }
@@ -48,7 +48,7 @@ public class StatusController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${StatusController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String update(@ApiParam("Status") @RequestBody StatusDTO StatusDTO) {
         return statusService.update(StatusDTO);
     }
@@ -57,7 +57,7 @@ public class StatusController {
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${StatusController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
-            @ApiResponse(code = 403, message = "Доступ огрнаничен")})
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String delete(@ApiParam("Id") @PathVariable Long id) {
         return statusService.delete(id);
     }
