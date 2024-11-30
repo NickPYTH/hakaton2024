@@ -40,7 +40,8 @@ public class SwaggerConfig {
                 new Tag("statuses", "Операции со статусами"),
                 new Tag("subtypes", "Операции с подтипами типов заявок"),
                 new Tag("types", "Операции с типами заявок"),
-                new Tag("groups", "Операции с группами")
+                new Tag("groups", "Операции с группами"),
+                new Tag("reports", "Формирование отчетов")
         )//
         .genericModelSubstitutes(Optional.class);
 
