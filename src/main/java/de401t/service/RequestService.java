@@ -35,7 +35,12 @@ public class RequestService {
         return modelMapper.map(requestRepository.findById(id), RequestDTO.class);
     }
 
-    public String create(RequestDTO requestDTO) {
+    public String create(String tgId, RequestDTO requestDTO) {
+        if(tgId != null && !tgId.isEmpty()) {
+            if(userRepository.findByTgId(tgId) == null) {
+                throw new CustomException("Tg user not found", HttpStatus.BAD_REQUEST);
+            }
+        }
         Request request = modelMapper.map(requestDTO, Request.class);
         request.setCreateDate(new Date());
         request.setStatus(statusRepository.getById(1L));
@@ -68,7 +73,7 @@ public class RequestService {
         throw new CustomException("Request deleted", HttpStatus.OK);
     }
 
-    public List<RequestDTO> getRequests(HttpServletRequest req) {
+    public List<RequestDTO> getRequestsByRole(HttpServletRequest req) {
         User user = userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
         Role role = user.getRoles().get(0);
         if (role.getAuthority().equals("client")){
@@ -86,4 +91,10 @@ public class RequestService {
             throw new CustomException("Something went wrong", HttpStatus.BAD_REQUEST);
         }
     }
+
+    public List<RequestDTO> getRequests() {
+        List<Request> requests = requestRepository.findAllByOrderById();
+        return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
+    }
+
 }

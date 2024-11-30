@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +23,7 @@ public class ReportService {
 
     private final RequestService requestService;
 
-    public ResponseEntity getReportOnRequests(HttpServletRequest req) {
+    public ResponseEntity getReportOnRequests() {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
             XSSFSheet sheet = workbook.createSheet("Заявки");
@@ -54,7 +53,7 @@ public class ReportService {
             cell.setCellValue("Дата создания");
             cell = headerRow.createCell(11);
             cell.setCellValue("Дедлайн");
-            List<RequestDTO> requestList = requestService.getRequests(req);
+            List<RequestDTO> requestList = requestService.getRequests();
             for (RequestDTO request : requestList) {
                 Row dataRow = sheet.createRow(rowNum++);
                 cell = dataRow.createCell(0);

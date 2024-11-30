@@ -25,7 +25,7 @@ public class RequestController {
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
     public List<RequestDTO> getRequests(HttpServletRequest req) {
-        return requestService.getRequests(req);
+        return requestService.getRequestsByRole(req);
     }
 
     @GetMapping(value = "/{id}")
@@ -42,7 +42,15 @@ public class RequestController {
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String create(@ApiParam("Request") @RequestBody RequestDTO requestDTO) {
-        return requestService.create(requestDTO);
+        return requestService.create(null, requestDTO);
+    }
+
+    @PostMapping(value = "/tg/create")
+    @ApiOperation(value = "${RequestController.createFromTg}", authorizations = {@Authorization(value = "apiKey")})
+    @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
+            @ApiResponse(code = 403, message = "Доступ ограничен")})
+    public String createFromTg(@ApiParam("Tg Id") @RequestParam String tgId, @ApiParam("Request") @RequestBody RequestDTO requestDTO) {
+        return requestService.create(tgId, requestDTO);
     }
 
     @PutMapping(value = "/update")
