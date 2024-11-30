@@ -3,8 +3,10 @@ package de401t.service;
 import de401t.dto.RoleDTO;
 import de401t.dto.UserDTO;
 import de401t.exception.CustomException;
+import de401t.model.Group;
 import de401t.model.Role;
 import de401t.model.User;
+import de401t.repository.GroupRepository;
 import de401t.repository.RoleRepository;
 import de401t.repository.UserRepository;
 import de401t.security.JwtTokenProvider;
@@ -34,6 +36,7 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
     private final RoleRepository roleRepository;
+    private final GroupRepository groupRepository;
 
     public HashMap<String, String> login(String username, String password) {
         try {
@@ -56,6 +59,9 @@ public class UserService {
         User user = modelMapper.map(userDTO, User.class);
         if (!userRepository.existsByUsername(user.getUsername())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            Group group = groupRepository.getById(userDTO.getGroup().getId());
+            user.setGroup(group);
+            user.setIsBoss(userDTO.getIsBoss());
             List<Role> roles = new ArrayList<>();
             roles.add(roleRepository.findById(userDTO.getRole().getId()));
             user.setRoles(roles);
@@ -71,6 +77,9 @@ public class UserService {
         if (!userOpt.isPresent())
             throw new CustomException("User does not exist", HttpStatus.UNPROCESSABLE_ENTITY);
         User user = userOpt.get();
+        Group group = groupRepository.getById(userDTO.getGroup().getId());
+        user.setGroup(group);
+        user.setIsBoss(userDTO.getIsBoss());
         List<Role> roles = new ArrayList<>();
         roles.add(roleRepository.findById(userDTO.getRole().getId()));
         user.setRoles(roles);
@@ -80,6 +89,7 @@ public class UserService {
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setPhone(userDTO.getPhone());
+
         if (userDTO.getPassword() != null)
             if (userDTO.getPassword().trim().length() > 0)
                 user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
