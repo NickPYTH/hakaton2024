@@ -22,6 +22,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByTgName(String tgName);
 
+    User findByTgId(String tgId);
+
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles")
     List<User> findAllByGroup(Group group);
 
