@@ -39,4 +39,6 @@ public class RequestDTO {
     private Date updateDate;
     @ApiModelProperty(position = 14)
     private String comment;
+    @ApiModelProperty(position = 14)
+    private GroupDTO group;
 }

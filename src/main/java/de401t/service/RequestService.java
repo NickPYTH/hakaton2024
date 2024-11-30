@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +28,8 @@ public class RequestService {
     private final StatusRepository statusRepository;
     private final ModelMapper modelMapper;
     private final JwtTokenProvider jwtTokenProvider;
+    private final DefaultEmailService emailService;
+    private final TelegramService telegramService;
 
     public RequestDTO getRequestById(Long id) {
         return modelMapper.map(requestRepository.findById(id), RequestDTO.class);
@@ -42,7 +43,13 @@ public class RequestService {
         calendar.setTime(request.getCreateDate());
         calendar.add(Calendar.HOUR_OF_DAY, request.getPriority().getTerm().intValue());
         request.setDeadlineDate(calendar.getTime());
-        requestRepository.save(request);
+        request = requestRepository.save(request);
+        if(request.getGroup() != null) {
+            List<User> userList = userRepository.findAllByGroup(request.getGroup());
+            emailService.sendEmailForGroup(userList, "Создана заявка", "На вашу группу была создана заявка ID " +
+                            request.getId() + " пользователем " + request.getClient().getEmail() + ".");
+            telegramService.sendNotifyForGroup(userList, request);
+        }
         throw new CustomException("Request created", HttpStatus.OK);
     }
 
@@ -50,6 +57,9 @@ public class RequestService {
         Request request = modelMapper.map(requestDTO, Request.class);
         request.setUpdateDate(new Date());
         requestRepository.save(request);
+        if(request.getStatus() != null && request.getStatus().getId().equals(3L)) {
+            emailService.sendSimpleEmail(request.getClient().getEmail(), "Заявка выполнена", "Ваша заявка ID " + request.getId() + " была выполнена.");
+        }
         throw new CustomException("Request updated", HttpStatus.OK);
     }
 
