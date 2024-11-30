@@ -37,19 +37,25 @@ public class TelegramService {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
         for(User user : userList) {
-            MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-            formData.add("role", user.getRoles().get(0).getName());
-            formData.add("tg_id", user.getTgId());
-            formData.add("request_id", String.valueOf(request.getId()));
-            formData.add("request_name", request.getName());
-            formData.add("link", "https://nickpyth-hakatonclient2024-e942.twc1.net/api/requests/" + request.getId());
-            formData.add("create_date", request.getCreateDate().toString());
+            if(user.getTgId() != null && !user.getTgId().isEmpty()) {
+                MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+                formData.add("role", user.getRoles().get(0).getName());
+                formData.add("tg_id", user.getTgId());
+                formData.add("request_id", String.valueOf(request.getId()));
+                formData.add("request_name", request.getName());
+                formData.add("link", "https://nickpyth-hakatonclient2024-e942.twc1.net");
+                //formData.add("link", "https://nickpyth-hakatonclient2024-e942.twc1.net/api/requests/" + request.getId());
+                formData.add("create_date", request.getCreateDate().toString());
 
-            HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(formData, headers);
+                HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(formData, headers);
 
-            restTemplate.postForObject("https://evgeny1337-hackatonbot-c635.twc1.net/sendnotif", requestEntity, String.class);
+                try {
+                    restTemplate.postForObject("https://evgeny1337-hackatonbot-c635.twc1.net/sendnotif", requestEntity, String.class);
+                } catch (Exception ignored) {
+
+                }
+            }
         }
     }
 
