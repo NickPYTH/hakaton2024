@@ -36,9 +36,6 @@ public class RequestService {
 
     public String create(RequestDTO requestDTO) {
         Request request = modelMapper.map(requestDTO, Request.class);
-        if(request.getPriority() == null || !(request.getType() != null && request.getSubType() != null && request.getType().getId().equals(request.getSubType().getTypeId()))) {
-            throw new CustomException("Something went wrong", HttpStatus.BAD_REQUEST);
-        }
         request.setCreateDate(new Date());
         request.setStatus(statusRepository.getById(1L));
         Calendar calendar = Calendar.getInstance();

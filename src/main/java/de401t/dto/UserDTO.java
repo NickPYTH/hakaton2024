@@ -29,4 +29,8 @@ public class UserDTO {
     private String tgName;
     @ApiModelProperty(position = 10)
     private String tgId;
+    @ApiModelProperty(position = 11)
+    private Boolean isBoss;
+    @ApiModelProperty(position = 12)
+    private GroupDTO group;
 }

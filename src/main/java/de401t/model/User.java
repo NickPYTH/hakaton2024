@@ -37,6 +37,11 @@ public class User implements UserDetails {
     private String tgId;
     @Column(unique = true)
     private String tgName;
+    @OneToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+    @Column
+    private Boolean isBoss;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
     @Override
