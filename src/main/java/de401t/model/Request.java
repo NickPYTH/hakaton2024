@@ -49,4 +49,7 @@ public class Request {
     private Date updateDate;
     @Column
     private String comment;
+    @OneToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 }

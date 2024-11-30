@@ -1,9 +1,15 @@
 spring:
   mail:
     host: smtp.timeweb.ru
-    port: 25
+    port: 465
     username: admin@request-desk.ru
     password: Sirenko2706200025@
+    protocol: smtp
+    properties:
+      "mail.smtp.ssl.enable": true
+      "mail.smtp.auth": true
+      "mail.smtp.starttls.enable": true
+      "mail.smtp.localhost": localhost
   servlet:
     multipart:
       max-file-size: 20MB
