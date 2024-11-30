@@ -19,7 +19,7 @@ public class StatusController {
     private final StatusService statusService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${StatusController.getStatuses}", response = StatusDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -28,7 +28,7 @@ public class StatusController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${StatusController.getStatusById}", response = StatusDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public StatusDTO getStatusById(@ApiParam("Id") @PathVariable Long id) {
@@ -36,7 +36,7 @@ public class StatusController {
     }
 
     @PostMapping(value = "/create")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${StatusController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -45,7 +45,7 @@ public class StatusController {
     }
 
     @PutMapping(value = "/update")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${StatusController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -54,7 +54,7 @@ public class StatusController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${StatusController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})

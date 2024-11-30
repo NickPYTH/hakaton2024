@@ -19,7 +19,7 @@ public class GroupController {
     private final GroupService groupService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${GroupController.getGroups}", response = GroupDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -28,7 +28,7 @@ public class GroupController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${GroupController.getGroupById}", response = GroupDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public GroupDTO getGroupById(@ApiParam("Id") @PathVariable Long id) {
@@ -36,7 +36,7 @@ public class GroupController {
     }
 
     @PostMapping(value = "/create")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${GroupController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -45,7 +45,7 @@ public class GroupController {
     }
 
     @PutMapping(value = "/update")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${GroupController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -54,7 +54,7 @@ public class GroupController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${GroupController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})

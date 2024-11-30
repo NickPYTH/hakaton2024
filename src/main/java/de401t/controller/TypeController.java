@@ -19,7 +19,7 @@ public class TypeController {
     private final TypeService typeService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${TypeController.getTypes}", response = TypeDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -28,7 +28,7 @@ public class TypeController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${TypeController.getTypeById}", response = TypeDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public TypeDTO getTypeById(@ApiParam("Id") @PathVariable Long id) {
@@ -36,7 +36,7 @@ public class TypeController {
     }
 
     @PostMapping(value = "/create")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${TypeController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -45,7 +45,7 @@ public class TypeController {
     }
 
     @PutMapping(value = "/update")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${TypeController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -54,7 +54,7 @@ public class TypeController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${TypeController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})

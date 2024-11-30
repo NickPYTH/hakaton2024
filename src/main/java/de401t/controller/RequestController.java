@@ -20,7 +20,7 @@ public class RequestController {
     private final RequestService requestService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${RequestController.getRequests}", response = RequestDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -29,7 +29,7 @@ public class RequestController {
     }
 
     @GetMapping(value = "/inProcessByTgId/{tgId}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${RequestController.getRequests}", response = RequestDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
@@ -38,7 +38,7 @@ public class RequestController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${RequestController.getRequestById}", response = RequestDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public RequestDTO getRequestById(@ApiParam("Id") @PathVariable Long id) {
@@ -46,7 +46,7 @@ public class RequestController {
     }
 
     @PostMapping(value = "/create")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${RequestController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -55,7 +55,7 @@ public class RequestController {
     }
 
     @PutMapping(value = "/update")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${RequestController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
@@ -64,7 +64,7 @@ public class RequestController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
     @ApiOperation(value = "${RequestController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
