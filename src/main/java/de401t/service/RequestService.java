@@ -4,6 +4,7 @@ import de401t.dto.RequestDTO;
 import de401t.exception.CustomException;
 import de401t.model.Request;
 import de401t.model.Role;
+import de401t.model.Status;
 import de401t.model.User;
 import de401t.repository.RequestRepository;
 import de401t.repository.StatusRepository;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,6 +74,22 @@ public class RequestService {
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         } else {
             throw new CustomException("Something went wrong", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public List<RequestDTO> getRequestsInProcessByTgId(String tgId) {
+        User user = userRepository.findByTgId(tgId);
+        Long roleId = user.getRoles().get(0).getId();
+        Status doneStatus = statusRepository.getById(3L);
+        if (roleId == 2L){ // client
+            List<Request> requests = requestRepository.findAllByClientAndStatusIsNotOrderById(user, doneStatus);
+            return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
+        } else if (roleId == 3L) { // executor
+            List<Request> requests = requestRepository.findAllByExecutorAndStatusIsNotOrderById(user, doneStatus);
+            return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
+        } else { // other
+            List<Request> requests = requestRepository.findAllStatusIsNotOrderById(doneStatus);
+            return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         }
     }
 }

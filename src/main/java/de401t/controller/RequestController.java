@@ -28,6 +28,15 @@ public class RequestController {
         return requestService.getRequests(req);
     }
 
+    @GetMapping(value = "/inProcessByTgId/{tgId}")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
+    @ApiOperation(value = "${RequestController.getRequests}", response = RequestDTO.class,
+            responseContainer = "List",
+            authorizations = {@Authorization(value = "apiKey")})
+    public List<RequestDTO> getRequestsInProcessByTgId(@ApiParam("tgId") @PathVariable String tgId) {
+        return requestService.getRequestsInProcessByTgId(tgId);
+    }
+
     @GetMapping(value = "/{id}")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client')")
     @ApiOperation(value = "${RequestController.getRequestById}", response = RequestDTO.class,
