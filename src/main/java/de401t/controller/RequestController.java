@@ -4,10 +4,13 @@ import de401t.dto.RequestDTO;
 import de401t.service.RequestService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -50,7 +53,7 @@ public class RequestController {
     @ApiOperation(value = "${RequestController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
-    public String create(@ApiParam("Request") @RequestBody RequestDTO requestDTO) {
+    public String create(@ApiParam("Request") @RequestBody RequestDTO requestDTO) throws MessagingException, IOException, InvalidFormatException {
         return requestService.create(requestDTO);
     }
 

@@ -29,6 +29,7 @@ public class RequestService {
     private final StatusRepository statusRepository;
     private final ModelMapper modelMapper;
     private final JwtTokenProvider jwtTokenProvider;
+    private final DefaultEmailService defaultEmailService;
 
     public RequestDTO getRequestById(Long id) {
         return modelMapper.map(requestRepository.findById(id), RequestDTO.class);
