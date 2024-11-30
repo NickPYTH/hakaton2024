@@ -48,9 +48,11 @@ public class RequestService {
         request = requestRepository.save(request);
         if(request.getGroup() != null) {
             List<User> userList = userRepository.findAllByGroup(request.getGroup());
-            emailService.sendEmailForGroup(userList, "Создана заявка", "На вашу группу была создана заявка ID " +
-                            request.getId() + " пользователем " + request.getClient().getEmail() + ".");
-            telegramService.sendNotifyForGroup(userList, request);
+            try {
+                emailService.sendEmailForGroup(userList, "Создана заявка", "На вашу группу была создана заявка ID " +
+                        request.getId() + " пользователем " + request.getClient().getEmail() + ".");
+                telegramService.sendNotifyForGroup(userList, request);
+            } catch (Exception e){}
         }
         throw new CustomException("Request created", HttpStatus.OK);
     }
@@ -60,7 +62,9 @@ public class RequestService {
         request.setUpdateDate(new Date());
         requestRepository.save(request);
         if(request.getStatus() != null && request.getStatus().getId().equals(3L)) {
-            emailService.sendSimpleEmail(request.getClient().getEmail(), "Заявка выполнена", "Ваша заявка ID " + request.getId() + " была выполнена.");
+            try {
+                emailService.sendSimpleEmail(request.getClient().getEmail(), "Заявка выполнена", "Ваша заявка ID " + request.getId() + " была выполнена.");
+            } catch (Exception e){}
         }
         throw new CustomException("Request updated", HttpStatus.OK);
     }
