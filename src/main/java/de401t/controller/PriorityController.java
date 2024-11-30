@@ -19,8 +19,7 @@ public class PriorityController {
     private final PriorityService priorityService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${PriorityController.getPriorities}", response = PriorityDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${PriorityController.getPriorities}", response = PriorityDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
     public List<PriorityDTO> getPriorities() {
@@ -28,16 +27,14 @@ public class PriorityController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${PriorityController.getPriorityById}", response = PriorityDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${PriorityController.getPriorityById}", response = PriorityDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public PriorityDTO getPriorityById(@ApiParam("Id") @PathVariable Long id) {
         return priorityService.getPriorityById(id);
     }
 
     @PostMapping(value = "/create")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${PriorityController.create}", authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${PriorityController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String create(@ApiParam("Priority") @RequestBody PriorityDTO PriorityDTO) {
@@ -45,8 +42,7 @@ public class PriorityController {
     }
 
     @PutMapping(value = "/update")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${PriorityController.update}", authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${PriorityController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String update(@ApiParam("Priority") @RequestBody PriorityDTO PriorityDTO) {
@@ -54,8 +50,7 @@ public class PriorityController {
     }
 
     @PostMapping(value = "/delete/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${PriorityController.delete}", authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${PriorityController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String delete(@ApiParam("Id") @PathVariable Long id) {

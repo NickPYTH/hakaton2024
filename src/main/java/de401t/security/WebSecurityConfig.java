@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // Entry points
     http.authorizeRequests()//
         .antMatchers("/api/**").permitAll()//
+        .antMatchers("api/reports").anonymous()
         .antMatchers("/h2-console/**/**").permitAll()
         // Disallow everything else..
         .anyRequest().authenticated();
@@ -51,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) throws Exception {
     // Allow swagger to be accessed without authentication
     web.ignoring().antMatchers("/v2/api-docs")//
+        .antMatchers("/api/reports")//
         .antMatchers("/swagger-resources/**")//
         .antMatchers("/swagger-ui.html")//
         .antMatchers("/configuration/**")//

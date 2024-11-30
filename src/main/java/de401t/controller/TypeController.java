@@ -19,8 +19,7 @@ public class TypeController {
     private final TypeService typeService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${TypeController.getTypes}", response = TypeDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${TypeController.getTypes}", response = TypeDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
     public List<TypeDTO> getTypes() {
@@ -28,16 +27,14 @@ public class TypeController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${TypeController.getTypeById}", response = TypeDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${TypeController.getTypeById}", response = TypeDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
     public TypeDTO getTypeById(@ApiParam("Id") @PathVariable Long id) {
         return typeService.getTypeById(id);
     }
 
     @PostMapping(value = "/create")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${TypeController.create}", authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${TypeController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String create(@ApiParam("Type") @RequestBody TypeDTO TypeDTO) {
@@ -45,8 +42,7 @@ public class TypeController {
     }
 
     @PutMapping(value = "/update")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${TypeController.update}", authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${TypeController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String update(@ApiParam("Type") @RequestBody TypeDTO TypeDTO) {
@@ -54,8 +50,7 @@ public class TypeController {
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${TypeController.delete}", authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${TypeController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String delete(@ApiParam("Id") @PathVariable Long id) {

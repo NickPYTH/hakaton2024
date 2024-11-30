@@ -41,4 +41,6 @@ public class RequestDTO {
     private String comment;
     @ApiModelProperty(position = 14)
     private GroupDTO group;
+    @ApiModelProperty(position = 14)
+    private EquipmentDTO equipment;
 }

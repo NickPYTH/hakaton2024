@@ -25,5 +25,4 @@ public class ReportController {
     public ResponseEntity getReportOnRequests() {
         return reportService.getReportOnRequests();
     }
-
 }

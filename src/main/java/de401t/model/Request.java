@@ -52,4 +52,7 @@ public class Request {
     @OneToOne
     @JoinColumn(name = "group_id")
     private Group group;
+    @OneToOne
+    @JoinColumn(name = "equipment_id")
+    private Equipment equipment;
 }

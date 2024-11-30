@@ -24,8 +24,7 @@ public class RoleController {
     private final RoleService roleService;
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${RoleController.getAll}", response = RoleDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${RoleController.getAll}", response = RoleDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
     public List<RoleDTO> getAll() {

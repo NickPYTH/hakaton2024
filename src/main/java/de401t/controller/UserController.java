@@ -47,8 +47,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/update")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${UserController.signup}")
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${UserController.signup}")
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
             @ApiResponse(code = 403, message = "Доступ ограничен"), //
@@ -59,8 +58,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(value = "/{username}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${UserController.delete}", authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${UserController.delete}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"), //
             @ApiResponse(code = 403, message = "Доступ ограничен"), //
@@ -72,8 +70,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/{username}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${UserController.search}", response = UserDTO.class, authorizations = {@Authorization(value = "apiKey")})
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${UserController.search}", response = UserDTO.class, authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен"),
@@ -85,8 +82,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor')")
-    @ApiOperation(value = "${UserController.getUsers}", response = UserDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${UserController.getUsers}", response = UserDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
     public List<UserDTO> getUsers() {

@@ -90,10 +90,15 @@ public class RequestService {
             requests.addAll(requestRepository.findAllByStatusId(1L));
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
         }
+        else if (role.getAuthority().equals("assistant")) {
+            List<Request> requests = requestRepository.findAllByAssistantOrderById(user);
+            return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
+        }
         else if (role.getAuthority().equals("admin")) {
             List<Request> requests = requestRepository.findAllByOrderById();
             return requests.stream().map(request -> modelMapper.map(request, RequestDTO.class)).collect(Collectors.toList());
-        } else {
+        }
+        else {
             throw new CustomException("Something went wrong", HttpStatus.BAD_REQUEST);
         }
     }

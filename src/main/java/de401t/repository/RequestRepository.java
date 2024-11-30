@@ -18,4 +18,5 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     List<Request> findAllByClientAndStatusIsNotOrderById(User user, Status status);
     List<Request> findAllByExecutorAndStatusIsNotOrderById(User user, Status doneStatus);
     List<Request> findAllStatusIsNotOrderById(Status doneStatus);
+    List<Request> findAllByAssistantOrderById(User user);
 }

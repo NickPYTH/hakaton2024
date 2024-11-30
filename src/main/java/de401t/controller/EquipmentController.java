@@ -1,7 +1,7 @@
 package de401t.controller;
 
-import de401t.dto.GroupDTO;
-import de401t.service.GroupService;
+import de401t.dto.EquipmentDTO;
+import de401t.service.EquipmentService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,42 +11,42 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/groups")
-@Api(tags = "groups")
+@RequestMapping("/api/equipments")
+@Api(tags = "equipments")
 @RequiredArgsConstructor
-public class GroupController {
+public class EquipmentController {
 
-    private final GroupService groupService;
+    private final EquipmentService equipmentService;
 
     @GetMapping(value = "/all")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${GroupController.getGroups}", response = GroupDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${GroupController.getGroups}", response = EquipmentDTO.class,
             responseContainer = "List",
             authorizations = {@Authorization(value = "apiKey")})
-    public List<GroupDTO> getGroups() {
-        return groupService.getGroups();
+    public List<EquipmentDTO> getGroups() {
+        return equipmentService.getEquipments();
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${GroupController.getGroupById}", response = GroupDTO.class,
+    @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${GroupController.getGroupById}", response = EquipmentDTO.class,
             authorizations = {@Authorization(value = "apiKey")})
-    public GroupDTO getGroupById(@ApiParam("Id") @PathVariable Long id) {
-        return groupService.getGroupById(id);
+    public EquipmentDTO getGroupById(@ApiParam("Id") @PathVariable Long id) {
+        return equipmentService.getEquipmentById(id);
     }
 
     @PostMapping(value = "/create")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${GroupController.create}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
-    public String create(@ApiParam("Group") @RequestBody GroupDTO GroupDTO) {
-        return groupService.create(GroupDTO);
+    public String create(@ApiParam("Group") @RequestBody EquipmentDTO EquipmentDTO) {
+        return equipmentService.create(EquipmentDTO);
     }
 
     @PutMapping(value = "/update")
     @PreAuthorize("hasAuthority('admin') or hasAuthority('client') or hasAuthority('executor') or hasAuthority('assistant')")    @ApiOperation(value = "${GroupController.update}", authorizations = {@Authorization(value = "apiKey")})
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
-    public String update(@ApiParam("Group") @RequestBody GroupDTO GroupDTO) {
-        return groupService.update(GroupDTO);
+    public String update(@ApiParam("Group") @RequestBody EquipmentDTO EquipmentDTO) {
+        return equipmentService.update(EquipmentDTO);
     }
 
     @DeleteMapping(value = "/delete/{id}")
@@ -54,7 +54,7 @@ public class GroupController {
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Что-то пошло не так"),
             @ApiResponse(code = 403, message = "Доступ ограничен")})
     public String delete(@ApiParam("Id") @PathVariable Long id) {
-        return groupService.delete(id);
+        return equipmentService.delete(id);
     }
 
 }
